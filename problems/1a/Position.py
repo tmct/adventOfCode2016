@@ -2,10 +2,10 @@ from Direction import Direction
 
 
 class Position:
-    def __init__(self):
+    def __init__(self, direction=Direction.north):
         self.x_coord = 0
         self.y_coord = 0
-        self.direction = Direction.north
+        self.direction = direction
 
     def turn(self, turn):
-        pass
+        self.direction = self.direction.turn(turn)
