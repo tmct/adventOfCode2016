@@ -9,3 +9,7 @@ class Position:
 
     def turn(self, turn):
         self.direction = self.direction.turn(turn)
+
+    def walk_forward(self, steps):
+        self.x_coord += steps * self.direction.get_i_component()
+        self.y_coord += steps * self.direction.get_j_component()
