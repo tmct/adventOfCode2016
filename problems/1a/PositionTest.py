@@ -9,7 +9,7 @@ class PositionTest(unittest.TestCase):
 
     def test_initial_position(self):
         position = Position()
-        
+
         self.assertEqual(position.x_coord, 0)
         self.assertEqual(position.y_coord, 0)
         self.assertEqual(position.direction, Direction.north)
