@@ -67,3 +67,6 @@ class PositionTest(unittest.TestCase):
         self.assertEqual(position.x_coord, 4)
         self.assertEqual(position.y_coord, 0)
         self.assertEqual(position.direction, Direction.east)
+
+if __name__ == '__main__':
+    unittest.main()

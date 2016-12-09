@@ -20,3 +20,6 @@ class DirectionStringParserTest(unittest.TestCase):
         turns, leaps = DirectionStringParser.parse("R5, L5, R5, R3")
         self.assertEqual(turns, [Turn.right, Turn.left, Turn.right, Turn.right])
         self.assertEqual(leaps, [5, 5, 5, 3])
+
+if __name__ == '__main__':
+    unittest.main()

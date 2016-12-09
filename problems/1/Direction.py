@@ -11,17 +11,19 @@ class Direction(Enum):
         new_direction = (self.value + turn.value) % 4
         return Direction(new_direction)
 
-    def get_i_component(self):
-        if self == self.east:
+    @classmethod
+    def get_i_component(cls, dir):
+        if dir == cls.east:
             return 1
-        if self == self.west:
+        if dir == cls.west:
             return -1
         return 0
 
-    def get_j_component(self):
-        if self == self.north:
+    @classmethod
+    def get_j_component(cls, dir):
+        if dir == cls.north:
             return 1
-        if self == self.south:
+        if dir == cls.south:
             return -1
         return 0
 
