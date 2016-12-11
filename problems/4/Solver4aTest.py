@@ -8,6 +8,11 @@ class Solver4aTest(unittest.TestCase):
             sector_id_sum = RealRoomValidator().get_real_rooms_sector_id_sum(room_file)
             self.assertEqual(sector_id_sum, 1514)
 
+    def test_real_input(self):
+        with open('input.txt', 'r') as room_file:
+            sector_id_sum = RealRoomValidator().get_real_rooms_sector_id_sum(room_file)
+            self.assertEqual(sector_id_sum, 361724)
+
 
 if __name__ == '__main__':
     unittest.main()
