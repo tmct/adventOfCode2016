@@ -19,3 +19,6 @@ class IPTest(unittest.TestCase):
     def test_example_4(self):
         ip = IP('ioxxoj[asdfgh]zxcvbn')
         self.assertTrue(ip.supports_tls)
+
+if __name__ == '__main__':
+    unittest.main()
