@@ -13,6 +13,12 @@ class Bot:
     def high_chip(self):
         return max(self.chips)
 
+    @property
+    def only_chip(self):
+        if len(self.chips) > 1:
+            raise Exception('More than one chip!')
+        return next(iter(self.chips))
+
     def give_chip(self, chip_value):
         if chip_value in self.chips:
             raise Exception('Bot {} already has value {}', self.index, chip_value)

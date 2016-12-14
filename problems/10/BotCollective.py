@@ -1,5 +1,12 @@
 import re
+import functools
+import operator
 from Bot import Bot
+
+
+def product(iterable):
+    return functools.reduce(operator.mul, iterable, 1)
+
 
 value_instruction_regex = r'value (\d+) goes to bot (\d+)'
 compare_instruction_basic_regex = r'^bot (\d+)'
@@ -81,3 +88,14 @@ class BotCollective:
             self.outputs[recipient_index].give_chip(chip_value)
         else:
             raise Exception('unrecognised recipient type, {}'.format(recipient_type))
+
+    def get_first_three_outputs_product(self):
+        further_distribution_needed = True
+        while further_distribution_needed:
+            further_distribution_needed = False
+            for bot in self.bots:
+                if bot.ready_to_sort:
+                    self.distribute_chips(bot.compare_string, bot.low_chip, bot.high_chip)
+                    bot.take_chips()
+                    further_distribution_needed = True
+        return product(output.only_chip for output in self.outputs[:3])
