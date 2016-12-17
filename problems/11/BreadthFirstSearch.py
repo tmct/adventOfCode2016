@@ -2,7 +2,8 @@ from collections import deque
 
 
 class BreadthFirstSearch:
-    def __init__(self):
+    def __init__(self, limit = None):
+        self.limit = limit
         self.visited_nodes = {}
         self.nodes_to_examine = deque()
 
@@ -10,10 +11,10 @@ class BreadthFirstSearch:
         self.visited_nodes[root_state] = {'parent': None, 'distance': 0}
         self.nodes_to_examine.append(root_state)
 
-        while len(self.nodes_to_examine):
+        while not self.limit or len(self.nodes_to_examine) < self.limit:
             current_node = self.nodes_to_examine.popleft()
             current_distance = self.visited_nodes[current_node]['distance']
-            for new_node in current_node.adjacent_safe_states:
+            for new_node in current_node.adjacent_safe_states():
                 if new_node not in self.visited_nodes:
                     self.visited_nodes[new_node] = {'parent': current_node, 'distance': current_distance + 1}
                     self.nodes_to_examine.append(new_node)
