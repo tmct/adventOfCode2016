@@ -15,6 +15,12 @@ class SolverTest(unittest.TestCase):
         output = Solver().solve(primes, remainders)
         self.assertEqual(400589, output)
 
+    def test_something_harder(self):
+        primes = (3, 5, 7, 11, 13, 17, 19)
+        remainders = (2, 4, 0, 4, 7, 1, 12)
+        output = Solver().solve(primes, remainders)
+        self.assertEqual(3045959, output)
+
 
 if __name__ == '__main__':
     unittest.main()
