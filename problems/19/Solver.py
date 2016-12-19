@@ -1,6 +1,6 @@
 class Solver:
     def __init__(self):
-        self.next_elves = {}
+        self.adjacent_elves = {}
 
     def solve(self, start_number):
         recipient = 1
@@ -16,25 +16,26 @@ class Solver:
         return recipient
 
     def solve_b(self, start_number):
-        self.next_elves = {index: index + 1 for index in range(start_number)}
-        self.next_elves[start_number - 1] = 0
-        current_elf_index = 0
+        self.adjacent_elves = {index: (index - 1, index + 1) for index in range(start_number)}
+        self.adjacent_elves[0] = (start_number - 1, 1)
+        self.adjacent_elves[start_number - 1] = (start_number - 2, 0)
+
+        first_elf_to_delete = start_number // 2
+        current_elf = first_elf_to_delete
         elves_remaining = start_number
         while elves_remaining > 1:
-            target_elf = current_elf_index
-            jump_distance = elves_remaining // 2
-            for i in range(jump_distance):
-                previous_elf = target_elf
-                target_elf = self.next_elves[target_elf]
-
-            # remove target elf
-            self.delete_target_elf(previous_elf, target_elf)
-
-            current_elf_index = self.next_elves[current_elf_index]
+            elf_to_delete = current_elf
+            current_elf = self.adjacent_elves[current_elf][1]
+            if elves_remaining % 2:
+                current_elf = self.adjacent_elves[current_elf][1]
+            self.delete_elf(elf_to_delete)
             elves_remaining -= 1
-        return current_elf_index + 1
 
-    def delete_target_elf(self, previous_elf, target_elf):
-        next_elf = self.next_elves[target_elf]
-        self.next_elves[previous_elf] = next_elf
-        target_elf %= len(self.next_elves)
+        return current_elf + 1
+
+    def delete_elf(self, target_elf):
+        before, after = self.adjacent_elves[target_elf]
+        two_before = self.adjacent_elves[before][0]
+        self.adjacent_elves[before] = (two_before, after)
+        two_after = self.adjacent_elves[after][1]
+        self.adjacent_elves[after] = (before, two_after)

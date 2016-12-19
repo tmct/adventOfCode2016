@@ -57,7 +57,7 @@ class SolverTest(unittest.TestCase):
 
     def test_circle_input_b(self):
         output = Solver().solve_b(3001330)
-        self.assertEqual(0, output)
+        self.assertEqual(1407007, output)
 
 
 if __name__ == '__main__':
