@@ -1,4 +1,7 @@
 class Solver:
+    def __init__(self):
+        self.next_elves = {}
+
     def solve(self, start_number):
         recipient = 1
         remaining = start_number
@@ -13,17 +16,25 @@ class Solver:
         return recipient
 
     def solve_b(self, start_number):
-        elves = list(range(1, start_number + 1))
+        self.next_elves = {index: index + 1 for index in range(start_number)}
+        self.next_elves[start_number - 1] = 0
         current_elf_index = 0
-        while len(elves) > 1:
-            jump_distance = len(elves) // 2
-            target_elf = jump_distance + current_elf_index
-            if target_elf >= len(elves):
-                del elves[target_elf - len(elves)]
-                current_elf_index -= 1
-            else:
-                del elves[target_elf]
-            current_elf_index += 1
-            current_elf_index %= len(elves)
+        elves_remaining = start_number
+        while elves_remaining > 1:
+            target_elf = current_elf_index
+            jump_distance = elves_remaining // 2
+            for i in range(jump_distance):
+                previous_elf = target_elf
+                target_elf = self.next_elves[target_elf]
 
-        return elves[current_elf_index]
+            # remove target elf
+            self.delete_target_elf(previous_elf, target_elf)
+
+            current_elf_index = self.next_elves[current_elf_index]
+            elves_remaining -= 1
+        return current_elf_index + 1
+
+    def delete_target_elf(self, previous_elf, target_elf):
+        next_elf = self.next_elves[target_elf]
+        self.next_elves[previous_elf] = next_elf
+        target_elf %= len(self.next_elves)
